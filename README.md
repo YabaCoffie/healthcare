@@ -50,11 +50,16 @@ L'approche actuelle implémente un moteur de recherche de réponse "naïf" mais 
 
 ---
 
-## 🚀 Prochaines Étapes
+## 🚀 Réalisations et Architecture RAG
+L'approche initiale par mots-clés (TF-IDF) a été remplacée par un pipeline RAG (Retrieval-Augmented Generation) de pointe, capable de traiter des requêtes multilingues sur des sources anglophones :
 
-1. **Implémentation RAG :** Migration vers **LlamaIndex** et **ChromaDB** pour une recherche sémantique plus fine.
-2. **LLM Integration :** Utilisation de modèles comme **Llama-3.3** ou **Gemini** pour reformuler et synthétiser les réponses extraites.
-3. **Embeddings :** Remplacer TF-IDF par des vecteurs d'embeddings contextuels (HuggingFace).
+* **Implémentation RAG & Vector Store :** Migration vers ChromaDB pour une recherche sémantique vectorielle. Le système n'est plus limité par les termes exacts mais comprend l'intention derrière chaque question.
+
+* **Moteur de Recherche Translingue (Cross-Lingual) :** Utilisation d'embeddings multilingues (HuggingFace). Cette technologie permet à l'utilisateur de poser des questions en français tout en extrayant avec précision des informations pertinentes dans le dataset MedQuAD (majoritairement en anglais).
+
+* **Intégration LLM & Synthèse :** Utilisation de Llama-3.3-70B (via Groq) comme cerveau décisionnel. Le modèle réalise une triple prouesse : il lit le contexte extrait, synthétise l'information médicale et retraduit dynamiquement la réponse dans la langue de l'utilisateur.
+
+* **Garde-fous Médicaux :** Le pipeline est configuré avec des consignes de sécurité strictes pour interdire les hallucinations et garantir que chaque réponse est strictement ancrée dans les données officielles des NIH. Remplacer TF-IDF par des vecteurs d'embeddings contextuels (HuggingFace).
 
 ---
 
