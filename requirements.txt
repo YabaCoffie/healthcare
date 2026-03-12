@@ -4,5 +4,6 @@ langchain-core
 langchain-groq
 langchain-classic
 langchain-huggingface
+sentence-transformers
 streamlit
 python-dotenv
