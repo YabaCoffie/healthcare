@@ -5,35 +5,33 @@ from rag import charger_csv, reponse
 
 
 # --- EN-TÊTE DE L'APPLICATION ---
-st.set_page_config(page_title="Assistant Médical MedQuAD", page_icon="🩺")
+st.set_page_config(page_title="MedQuAD Medical Assistant", page_icon="🩺")
 
-# Titre principal : Court et percutant
-st.title("🩺 Assistant Médical Intelligent (RAG)")
+# Titre principal
+st.title("🩺 Intelligent Medical Assistant (RAG)")
 
-# Sous-titre : Explique la technologie et la source
 st.markdown("""
-### Expertise basée sur le dataset certifié **MedQuAD** (NIH)
-*Exploration de plus de 47 000 paires de questions-réponses médicales de confiance.*
+### ### Expertise based on the certified **MedQuAD** (NIH) dataset
+*Exploring over 47,000 trusted medical question-and-answer pairs.*
 """)
 
-# Section des sources (utilisant ce que tu as trouvé sur Kaggle)
-with st.expander("🔍 Voir les sources de données officielles"):
+# Section des sources
+with st.expander("🔍 View official data sources"):
     st.write("""
-    Cette IA synthétise des informations provenant de 12 sites des **National Institutes of Health (NIH)** :
-    * **Cancer.gov** (Institut National du Cancer)
-    * **CDC** (Centres pour le contrôle et la prévention des maladies)
-    * **GARD** (Centre d'information sur les maladies génétiques et rares)
-    * **NIDDK** (Diabète, maladies digestives et rénales)
-    * **NHLBI** (Cœur, poumons et sang)
-    * *Et d'autres sources majeures : NIHSeniorHealth, GHR, MPlusHealthTopics...*
+    This AI synthesizes information from 12 **National Institutes of Health (NIH)** sites:
+    * **Cancer.gov** (National Cancer Institute)
+    * **CDC** (Centers for Disease Control and Prevention)
+    * **GARD** (Genetic and Rare Diseases Information Center)
+    * **NIDDK** (Diabetes, Digestive and Kidney Diseases)
+    * **NHLBI** (Heart, Lung, and Blood Institute)
+    * *And other major sources: NIHSeniorHealth, GHR, MPlusHealthTopics...*
     """)
 
 # Une petite info-bulle pour la crédibilité
-st.info("💡 L'IA utilise une chaîne d'orchestration pour harmoniser les réponses et garantir qu'elles proviennent de sources documentées.")
+st.info("💡 The AI uses an orchestration chain to harmonize responses and ensure they come from documented sources.")
 
 # --- RAPPEL DE SÉCURITÉ ---
-st.warning("⚠️ **Avertissement :** Cet outil est un projet de recherche. Il ne remplace en aucun cas une consultation médicale.")
-# text widget to get user input
+st.warning("⚠️ **Warning:** This tool is a research project. It is not a substitute for a medical consultation.")
 user_question = st.text_area("Ask your question about the document")
 
 if st.button("Answer"):

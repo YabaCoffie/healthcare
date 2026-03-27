@@ -30,22 +30,29 @@ def charger_csv():
 
 
 def reponse(question):
+    prompt_traduction = f"Translate the following medical question to English. If it is already in English, return it as is. Return ONLY the translation, no preamble, no quotes: {question}"    
+    traduction_result = llm.invoke(prompt_traduction)
+    question_en = traduction_result.content.strip().replace('"', '').replace("'", "")
+    # DEBUG : Affiche dans ta console ce que le moteur va chercher
+    print(f"--- Recherche SQL/Vecteur pour : {question_en} ---")
     vector_db = Chroma(
         embedding_function=embedding, 
         persist_directory=f"{working_dir}/doc_vectorstore"
     )
-    retriever = vector_db.as_retriever()
+    retriever = vector_db.as_retriever(search_kwargs={"k": 10})
+    # TEMPLATE EN ANGLAIS POUR ÉVITER LES CONFUSIONS
     template = """
-    Tu es un assistant IA médical expert. Ton rôle est de répondre aux questions de l'utilisateur 
-    en utilisant exclusivement les extraits de la base de données MedQuAD fournis dans le contexte ci-dessous.
+    You are an expert medical AI assistant. Your role is to answer the user's questions 
+    using exclusively the MedQuAD database excerpts provided in the context below.
 
-    Règles strictes :
-    1. Si la réponse n'est pas présente dans le contexte, dis clairement que tu ne sais pas.
-    2. N'utilise pas tes connaissances externes pour inventer des faits médicaux non présents ici.
-    3. Reste professionnel, précis et synthétique.
+    Strict Rules:
+    1. If the answer is not present in the context, clearly state that you do not know.
+    2. Do not use external knowledge to invent medical facts not present here.
+    3. Stay professional, precise, and concise.
+    4. You must respond in English.
     
-    Contexte : {context}
-    Question : {input}
+    Context: {context}
+    Question: {input}
     """
     prompt = ChatPromptTemplate.from_template(template)
     document_chain = create_stuff_documents_chain(
@@ -54,5 +61,5 @@ def reponse(question):
     retrieval_chain = create_retrieval_chain(
         retriever, document_chain
     )  # l'orchestreur final, va aller chercher la reponse à l'aide du pointeur retriever puis utilise l'harmoniseur
-    reponse = retrieval_chain.invoke({"input": question})
+    reponse = retrieval_chain.invoke({"input": question_en})
     return reponse["answer"]
