@@ -3,7 +3,9 @@
 
 # 🩺 MedQuAD Health Assistant: Analyse et QA par Recherche Sémantique
 
-Ce projet utilise le dataset **MedQuAD** (Medical Question-Answering Dataset) pour construire un système de réponse aux questions médicales. L'approche actuelle repose sur une analyse exploratoire approfondie (EDA) et un moteur de recherche de réponses basé sur la similarité statistique (**TF-IDF**).
+Ce projet utilise le dataset **MedQuAD** (Medical Question-Answering Dataset) pour construire un système de réponse aux questions médicales. L'approche actuelle repose sur une analyse exploratoire approfondie (EDA) et un moteur de recherche de réponses basé sur la similarité statistique 
+
+Le lien du ChatBot : https://yabacoffie-healthcare-app-kupngb.streamlit.app/
 
 ## 📊 Exploration et Analyse des Données (EDA)
 
